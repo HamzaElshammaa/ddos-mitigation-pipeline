@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  ddos-dashboard:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data:ro
+      - ./src/baseline_outputs:/app/src/baseline_outputs
+      - ./src/detection_outputs:/app/src/detection_outputs
+      - ./src/mitigation_outputs:/app/src/mitigation_outputs
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
